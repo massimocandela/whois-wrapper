@@ -87,9 +87,10 @@ Answer:
 
 ### Options
 
-| Option  | Meaning                                                                         | Default    |
-|---------|---------------------------------------------------------------------------------|------------|
-| query   | The whois query. Read `man whois` for information. E.g., `"r > 103.13.80.0/22"` |            |
-| flag    | The flag to select the server. Usually `s` or `h`, depending on the os.         |            |
-| servers | The array of whois servers.                                                     | All 5 RIRs |
-| timeout | Timeout for the whois command.                                                  | 4000       |
+| Option  | Meaning                                                                                     | Default    |
+|---------|---------------------------------------------------------------------------------------------|------------|
+| query   | The whois query. Read `man whois` for information. E.g., `"r > 103.13.80.0/22"`             |            |
+| flag    | The flag to select the server. Usually `s` or `h`, depending on the os.                     |            |
+| servers | The array of whois servers.                                                                 | All 5 RIRs |
+| timeout | Timeout for the whois command.                                                              | 4000       |
+| fields  | An array of whois fields (strings) you would like to receive. E.g., `["inetnum", "inet6num"]` | All fields |

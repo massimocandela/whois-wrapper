@@ -24,6 +24,20 @@ const setAuthority = (answers) => {
     }
 }
 
+const filterFields = (fields, data) => {
+    if (fields.length > 0) {
+
+        const out = [];
+        for (let items of data) {
+            out.push(items.filter(i => fields.includes(i.key.toLowerCase())));
+        }
+
+        return out;
+    } else {
+        return data;
+    }
+}
+
 const squashRemarksAndComments = (data) => {
     const out = [];
     for (let items of data) {
@@ -42,7 +56,7 @@ const squashRemarksAndComments = (data) => {
     return out;
 }
 
-const _whois = ({query, flag, timeout=4000, servers=Object.values(rirs)}) => {
+const _whois = ({query, fields=[], flag, timeout=4000, servers=Object.values(rirs)}) => {
     return new Promise((resolve, reject) => {
         try {
             flag = flag ?? (process.platform === "darwin" ? "s" : "h");
@@ -72,7 +86,7 @@ const _whois = ({query, flag, timeout=4000, servers=Object.values(rirs)}) => {
                         obj = [];
                     }
                 }
-                answer.data = squashRemarksAndComments(out.filter(i => i.length));
+                answer.data = squashRemarksAndComments(filterFields(fields, out.filter(i => i.length)));
             }
 
             resolve(answers.filter(i => i.data.length));
