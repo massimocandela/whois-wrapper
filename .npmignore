@@ -1,0 +1,11 @@
+.idea/
+node_modules/
+.DS_Store
+.npmrc
+.env
+src/
+.cache/
+.gitignore
+.npmignore
+.babelrc
+.eslintrc.json
