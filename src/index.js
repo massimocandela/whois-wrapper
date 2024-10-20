@@ -27,18 +27,26 @@ const setAuthority = (answers) => {
     }
 }
 
-const filterFields = (fields, data) => {
+const filterFields = (fields=[], answers) => {
     if (fields.length > 0) {
 
-        const out = [];
-        for (let items of data) {
-            out.push(items.filter(i => fields.includes(i.key.toLowerCase())));
+        for (let answer of answers) {
+            const out = [];
+
+            for (let items of answer.data) {
+                const filtered = items.filter(i => fields.includes(i.key.toLowerCase()));
+
+                if (filtered.length > 0) {
+                    out.push(filtered);
+                }
+            }
+
+            answer.data = out;
         }
 
-        return out.filter(i => i.length);
-    } else {
-        return data;
     }
+
+    return answers;
 }
 
 const squashRemarksAndComments = (data) => {
@@ -89,7 +97,7 @@ const _whois = ({query, fields=[], flag, timeout=4000, servers=Object.values(rir
                         obj = [];
                     }
                 }
-                answer.data = squashRemarksAndComments(filterFields(fields, out.filter(i => i.length)));
+                answer.data = squashRemarksAndComments(out.filter(i => i.length));
             }
 
             resolve(answers.filter(i => i.data.length));
@@ -112,18 +120,19 @@ export default function whois({servers, ...params}) {
                     } else {
                         const server = rirs[rir];
                         return _whois({...params, servers: [server]})
+                            .then(i => filterFields(params.fields, i));
                     }
                 } else {
 
                     return _whois(params)
-                        .then(answers => {
-                            return setAuthority(answers).filter(i => i.authority !== false);
-                        });
+                        .then(answers => setAuthority(answers).filter(i => i.authority !== false))
+                        .then(i => filterFields(params.fields, i));
                 }
             })
     } else {
         return _whois({...params, servers})
-            .then(setAuthority);
+            .then(setAuthority)
+            .then(i => filterFields(params.fields, i));
     }
 }
 
@@ -207,11 +216,9 @@ export const prefixLookup = ({prefix, ...params}) => {
                     }
                 })
                 .then(data => {
-                    if (data.length > 0) {
-                        return data;
-                    } else {
-                        return arinParent;
-                    }
+                    return data.length
+                        ? filterFields(params.fields, data)
+                        : filterFields(params.fields, arinParent);
                 })
         })
 }
