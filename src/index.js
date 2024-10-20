@@ -74,7 +74,12 @@ const _whois = ({query, fields=[], flag, timeout=4000, servers=Object.values(rir
             const answers = [];
             for (let server of servers) {
                 const command = `whois -${flag} ${server} "${query}"`;
-                const data = execSync(command, {encoding: 'utf-8', timeout});
+                let data = [];
+                try {
+                    data = execSync(command, {encoding: 'utf-8', timeout});
+                } catch (error) {
+                    data = error.stdout;
+                }
 
                 answers.push({
                     server,
