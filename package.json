@@ -1,6 +1,6 @@
 {
   "name": "whois-wrapper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple and effective wrapper around your system whois client",
   "main": "dist/index.js",
   "bin": {
