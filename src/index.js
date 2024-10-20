@@ -201,7 +201,7 @@ export const prefixLookup = ({prefix, ...params}) => {
                         if (rir) {
                             return _whois({...params, query: parent, servers: [rirs[rir]]});
                         } else {
-                            return _whois({...params, query: parent, servers: null});
+                            return _whois({...params, query: parent, servers: Object.values(rirs)});
                         }
 
                     }
