@@ -41,7 +41,10 @@
     "dotenv-cli": "^7.4.2",
     "release-it": "^17.10.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ip-sub": "^1.5.5",
+    "longest-prefix-match": "^1.2.7"
+  },
   "release-it": {
     "hooks": {
       "before:init": [

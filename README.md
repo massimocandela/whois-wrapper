@@ -1,9 +1,8 @@
 # whois-wrapper
 
-There are various nodejs whois clients. All of them do too many elaborated things and none good.
+There are various nodejs whois clients. All of them do too many elaborated things but often fail to provide the same reliability of the CLI whois client.
 
-This is not a whois client, this is just a wrapper around the whois client installed on your OS. There is nothing more
-reliable than the CLI whois client.
+This is not a whois client, this is just a wrapper around the whois client installed on your OS.
 
 Only tested on mac and linux.
 
@@ -87,10 +86,10 @@ Answer:
 
 ### Options
 
-| Option  | Meaning                                                                                     | Default    |
-|---------|---------------------------------------------------------------------------------------------|------------|
-| query   | The whois query. Read `man whois` for information. E.g., `"r > 103.13.80.0/22"`             |            |
-| flag    | The flag to select the server. Usually `s` or `h`, depending on the os.                     |            |
-| servers | The array of whois servers.                                                                 | All 5 RIRs |
-| timeout | Timeout for the whois command.                                                              | 4000       |
+| Option  | Meaning                                                                                       | Default    |
+|---------|-----------------------------------------------------------------------------------------------|------------|
+| query   | The whois query. Read `man whois` for information. E.g., `"r > 103.13.80.0/22"`               |            |
+| flag    | The flag to select the server. Usually `s` or `h`, depending on the os.                       |            |
+| servers | The array of whois servers.                                                                   | All 5 RIRs |
+| timeout | Timeout for the whois command.                                                                | 4000       |
 | fields  | An array of whois fields (strings) you would like to receive. E.g., `["inetnum", "inet6num"]` | All fields |

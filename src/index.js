@@ -1,3 +1,6 @@
+import ipUtils from 'ip-sub';
+import LongestPrefixMatch from 'longest-prefix-match';
+
 const execSync = require('child_process').execSync;
 
 const rirs = {
@@ -32,7 +35,7 @@ const filterFields = (fields, data) => {
             out.push(items.filter(i => fields.includes(i.key.toLowerCase())));
         }
 
-        return out;
+        return out.filter(i => i.length);
     } else {
         return data;
     }
@@ -124,3 +127,91 @@ export default function whois({servers, ...params}) {
     }
 }
 
+export const prefixLookup = ({prefix, ...params}) => {
+    const parent = ipUtils.toPrefix(prefix);
+    const [start] = ipUtils.cidrToRange(parent);
+    params = {flag: "h", timeout: 10000, ...params, servers: ["whois.arin.net"]};
+
+    return Promise.all([
+        _whois({...params, query: parent}),
+        _whois({...params, query: start}),
+    ])
+        .then(([a, b]) => {
+            const arinParent = a?.find(i => i.server === "whois.arin.net");
+            const arinChild = b?.find(i => i.server === "whois.arin.net");
+
+            const inetnums = [...new Set([
+                arinParent?.data?.flat().find(n => n.key === "NetRange")?.value,
+                arinChild?.data?.flat().find(n => n.key === "NetRange")?.value
+            ])]
+                .filter(i => !!i)
+                .map(i => i?.includes("-")
+                    ? ipUtils.ipRangeToCidr(...i.split("-").map(n => n.trim()))
+                    : i
+                )
+                .flat();
+            return Promise.all(inetnums.map(prefix => _whois({...params, query: `r > ${prefix}`})))
+                .then((data) => {
+
+                    let suballocations = [...new Set(data.flat().map(i => i.data).flat().flat().map(i => i.key))]
+                        .map(i => i.split(" "))
+                        .filter(i => i.length >= 5)
+                        .map(i => i.filter(n => n.match(/\(NET-([0-9]|-)*\)/) || ipUtils.isValidIP(n)))
+                        .filter(i => i.length > 0)
+                        .map(([id, start, stop]) => {
+
+                            const prefixes = ipUtils.ipRangeToCidr(start, stop);
+                            const handler = id.replace("(", "").replace(")", "");
+
+                            return prefixes.map(prefix => (`${handler}|${prefix}`));
+
+                        })
+                        .flat();
+
+                    suballocations = [...new Set(suballocations)]
+                        .map(i => {
+                            const [handler, prefix] = i.split("|");
+
+                            return {handler, prefix};
+                        });
+
+                    const index = new LongestPrefixMatch();
+
+                    for (let {prefix, handler} of suballocations) {
+                        index.addPrefix(prefix, handler);
+                    }
+
+                    const handlers = index.getMatch(parent);
+
+                    if (handlers.length > 0) {
+
+                        return Promise.all(index.getMatch(parent).map(i => _whois({...params, query: i})))
+                            .then(i => {
+                                const index = {};
+                                for (let {server, data} of i.flat()) {
+                                    index[server] ??= {server, data: []};
+                                    index[server].data = index[server].data.concat(data);
+                                }
+
+                                return Object.values(index);
+                            });
+                    } else {
+                        const rir = getAuthority(a);
+
+                        if (rir) {
+                            return _whois({...params, query: parent, servers: [rirs[rir]]});
+                        } else {
+                            return _whois({...params, query: parent, servers: null});
+                        }
+
+                    }
+                })
+                .then(data => {
+                    if (data.length > 0) {
+                        return data;
+                    } else {
+                        return arinParent;
+                    }
+                })
+        })
+}
