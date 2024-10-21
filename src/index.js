@@ -159,15 +159,18 @@ const prefixLookupArin = (a, {prefix, ...params}) => {
                 .map(item => {
                     const inetnum = item?.data?.flat().find(n => n.key === "NetRange");
 
-                    return {
-                        prefixes: inetnum?.value?.includes("-")
-                            ? ipUtils.ipRangeToCidr(...inetnum?.value?.split("-").map(n => n.trim()))
-                            : inetnum?.value,
-                        data: item?.data
-                    };
-                });
+                    if (inetnum) {
+                        return {
+                            prefixes: inetnum?.value?.includes("-")
+                                ? ipUtils.ipRangeToCidr(...inetnum?.value?.split("-").map(n => n.trim()))
+                                : inetnum?.value,
+                            data: item?.data
+                        };
+                    }
+                })
+                .filter(i => !!i);
 
-            for (let {prefixes, data} of inetnums) {
+            for (let {prefixes=[], data} of inetnums) {
                 for (let p of prefixes) {
                     index.addPrefix(p, {
                         server: "whois.arin.net",
