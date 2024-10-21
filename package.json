@@ -42,6 +42,7 @@
     "release-it": "^17.10.0"
   },
   "dependencies": {
+    "batch-promises": "^0.0.3",
     "ip-sub": "^1.5.5",
     "longest-prefix-match": "^1.2.7"
   },
