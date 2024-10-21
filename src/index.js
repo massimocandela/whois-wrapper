@@ -9,14 +9,14 @@ const rirs = {
     "lacnic": "whois.lacnic.net",
     "apnic": "whois.apnic.net",
     "afrinic": "whois.afrinic.net",
-}
+};
 
 const getAuthority = (answers) => {
     const sen = "Allocated to ";
     const arin = answers?.find(i => i.server === "whois.arin.net");
 
     return arin?.data?.flat().find(n => n.key === "NetType" && n.value.includes(sen))?.value.replace(sen, "").replace(" NCC", "").toLowerCase() ?? null;
-}
+};
 
 const setAuthority = (answers) => {
     const rir = getAuthority(answers);
@@ -25,9 +25,9 @@ const setAuthority = (answers) => {
     } else {
         return answers;
     }
-}
+};
 
-const filterFields = (fields=[], answers) => {
+const filterFields = (fields = [], answers) => {
     if (fields.length > 0) {
 
         for (let answer of answers) {
@@ -47,7 +47,7 @@ const filterFields = (fields=[], answers) => {
     }
 
     return answers;
-}
+};
 
 const squashRemarksAndComments = (data) => {
     const out = [];
@@ -65,9 +65,9 @@ const squashRemarksAndComments = (data) => {
     }
 
     return out;
-}
+};
 
-const _whois = ({query, fields=[], flag, timeout=4000, servers=Object.values(rirs)}) => {
+const _whois = ({query, fields = [], flag, timeout = 4000, servers = Object.values(rirs)}) => {
     return new Promise((resolve, reject) => {
         try {
             flag = flag ?? (process.platform === "darwin" ? "s" : "h");
@@ -95,7 +95,7 @@ const _whois = ({query, fields=[], flag, timeout=4000, servers=Object.values(rir
                     if (line.length) {
                         const [key, ...value] = line.split(":").map(i => i.trim());
                         if (!key.startsWith("%") && !key.startsWith("#") && key !== "") {
-                            obj.push({key, value: value.join(":") });
+                            obj.push({key, value: value.join(":")});
                         }
                     } else {
                         out.push(obj);
@@ -110,7 +110,7 @@ const _whois = ({query, fields=[], flag, timeout=4000, servers=Object.values(rir
             reject(error);
         }
     });
-}
+};
 
 export default function whois({servers, ...params}) {
     if (!servers) {
@@ -133,7 +133,7 @@ export default function whois({servers, ...params}) {
                         .then(answers => setAuthority(answers).filter(i => i.authority !== false))
                         .then(i => filterFields(params.fields, i));
                 }
-            })
+            });
     } else {
         return _whois({...params, servers})
             .then(setAuthority)
@@ -141,30 +141,44 @@ export default function whois({servers, ...params}) {
     }
 }
 
-export const prefixLookup = ({prefix, ...params}) => {
+const prefixLookupArin = (a, {prefix, ...params}) => {
     const parent = ipUtils.toPrefix(prefix);
-    const [start] = ipUtils.cidrToRange(parent);
+    const [start] = ipUtils.cidrToRange(prefix);
     params = {flag: "h", timeout: 10000, ...params, servers: ["whois.arin.net"]};
 
-    return Promise.all([
-        _whois({...params, query: parent}),
-        _whois({...params, query: start}),
-    ])
-        .then(([a, b]) => {
+    return _whois({...params, query: start})
+        .then(b => {
             const arinParent = a?.find(i => i.server === "whois.arin.net");
             const arinChild = b?.find(i => i.server === "whois.arin.net");
 
-            const inetnums = [...new Set([
-                arinParent?.data?.flat().find(n => n.key === "NetRange")?.value,
-                arinChild?.data?.flat().find(n => n.key === "NetRange")?.value
-            ])]
-                .filter(i => !!i)
-                .map(i => i?.includes("-")
-                    ? ipUtils.ipRangeToCidr(...i.split("-").map(n => n.trim()))
-                    : i
-                )
-                .flat();
-            return Promise.all(inetnums.map(prefix => _whois({...params, query: `r > ${prefix}`})))
+            const index = new LongestPrefixMatch();
+            let inetnums = [
+                arinParent,
+                arinChild
+            ]
+                .map(item => {
+                    const inetnum = item?.data?.flat().find(n => n.key === "NetRange");
+
+                    return {
+                        prefixes: inetnum?.value?.includes("-")
+                            ? ipUtils.ipRangeToCidr(...inetnum?.value?.split("-").map(n => n.trim()))
+                            : inetnum?.value,
+                        data: item?.data
+                    };
+                });
+
+            for (let {prefixes, data} of inetnums) {
+                for (let p of prefixes) {
+                    index.addPrefix(p, {
+                        server: "whois.arin.net",
+                        data
+                    });
+                }
+            }
+
+            return Promise.all(inetnums
+                .map(i => i.prefixes).flat()
+                .map(prefix => _whois({...params, query: `r > ${prefix}`})))
                 .then((data) => {
 
                     let suballocations = [...new Set(data.flat().map(i => i.data).flat().flat().map(i => i.key))]
@@ -189,8 +203,6 @@ export const prefixLookup = ({prefix, ...params}) => {
                             return {handler, prefix};
                         });
 
-                    const index = new LongestPrefixMatch();
-
                     for (let {prefix, handler} of suballocations) {
                         index.addPrefix(prefix, handler);
                     }
@@ -199,7 +211,11 @@ export const prefixLookup = ({prefix, ...params}) => {
 
                     if (handlers.length > 0) {
 
-                        return Promise.all(index.getMatch(parent).map(i => _whois({...params, query: i})))
+                        if (handlers.filter(i => i.server).length) {
+                            return handlers.filter(i => i.server)[0];
+                        }
+
+                        return Promise.all(handlers.filter(i => !i.server).map(i => _whois({...params, query: i})))
                             .then(i => {
                                 const index = {};
                                 for (let {server, data} of i.flat()) {
@@ -221,9 +237,25 @@ export const prefixLookup = ({prefix, ...params}) => {
                     }
                 })
                 .then(data => {
-                    return data.length
-                        ? filterFields(params.fields, data)
-                        : filterFields(params.fields, arinParent);
-                })
-        })
+
+                    return filterFields(params.fields, data);
+                });
+        });
+};
+
+export const prefixLookup = ({prefix, ...params}) => {
+    const parent = ipUtils.toPrefix(prefix);
+    params = {flag: "h", timeout: 10000, ...params, servers: ["whois.arin.net"]};
+
+
+    return _whois({...params, query: parent})
+        .then(a => {
+            const rir = getAuthority(a);
+
+            if (rir === "arin" || rir === null) {
+                return prefixLookupArin(a, {...params, prefix: parent});
+            } else {
+                return _whois({...params, query: parent, servers: Object.values(rirs)});
+            }
+        });
 }
