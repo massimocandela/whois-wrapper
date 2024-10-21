@@ -175,6 +175,7 @@ export const prefixLookupArin = ({query, ...params}) => {
         whois({...params, query: start})
     ])
         .then(([a, b]) => {
+
             const arinParent = a?.find(i => i.server === "whois.arin.net");
             const arinChild = b?.find(i => i.server === "whois.arin.net");
 
@@ -243,6 +244,7 @@ export const prefixLookupArin = ({query, ...params}) => {
                             return [handlers.filter(i => i.server)[0]];
                         }
 
+
                         return Promise.all(handlers.filter(i => !i?.server).map(i => whois({...params, servers: Object.values(rirs), query: i})))
                             .then(i => {
                                 const index = {};
@@ -265,9 +267,9 @@ const _prefixLookup = ({query, flag}) => {
     const [start] = ipUtils.cidrToRange(parent);
 
     return Promise.all([
-        whois({query: parent, flag, servers: []}),
-        whois({query: start, flag, servers: []}),
-        prefixLookupArin({query, flag})
+        // whois({query: parent, flag, servers: []}),
+        // whois({query: start, flag, servers: []}),
+        prefixLookupArin({query: parent, flag})
     ])
         .then(data => data.flat());
 }
@@ -283,15 +285,14 @@ export const prefixLookup = ({query, fields, flag}) => {
 export const lessSpecific = ({query, fields, flag}, callback, stop=16) => {
     const parent = ipUtils.toPrefix(query);
     const [ip, bits] = ipUtils.getIpAndCidr(parent);
-    const af = ipUtils.getAddressFamily(ip);
     const prefixes = [];
-
     for (let i=bits; i >=stop; i--) {
-        prefixes.push(ipUtils._expandIP(ipUtils.fromBinary(ipUtils.applyNetmask([ip, i].join("/"), af), af), af) + `/${i}`);
+        prefixes.push(ipUtils.toPrefix([ip, i].join("/")));
     }
 
     let match = null;
 
+    // This could be optimized by checking the last returned cidr and skipping queries that would produce the same answer
     return batchPromises(1, prefixes, prefix => {
         if (match) {
             return Promise.resolve();
@@ -306,4 +307,3 @@ export const lessSpecific = ({query, fields, flag}, callback, stop=16) => {
     })
         .then(() => filterMoreSpecific(match.flat(), parent))
 }
-
