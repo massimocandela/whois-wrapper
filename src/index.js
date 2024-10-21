@@ -212,10 +212,10 @@ const prefixLookupArin = (a, {prefix, ...params}) => {
                     if (handlers.length > 0) {
 
                         if (handlers.filter(i => i.server).length) {
-                            return handlers.filter(i => i.server)[0];
+                            return [handlers.filter(i => i.server)[0]];
                         }
 
-                        return Promise.all(handlers.filter(i => !i.server).map(i => _whois({...params, query: i})))
+                        return Promise.all(handlers.filter(i => !i?.server).map(i => _whois({...params, query: i})))
                             .then(i => {
                                 const index = {};
                                 for (let {server, data} of i.flat()) {
