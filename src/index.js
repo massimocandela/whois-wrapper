@@ -267,8 +267,8 @@ const _prefixLookup = ({query, flag}) => {
     const [start] = ipUtils.cidrToRange(parent);
 
     return Promise.all([
-        // whois({query: parent, flag, servers: []}),
-        // whois({query: start, flag, servers: []}),
+        whois({query: parent, flag, servers: []}),
+        whois({query: start, flag, servers: []}),
         prefixLookupArin({query: parent, flag})
     ])
         .then(data => data.flat());
