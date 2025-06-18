@@ -9,3 +9,8 @@ src/
 .npmignore
 .babelrc
 .eslintrc.json
+.npmrc
+.env
+.git/
+~/
+.npm/
