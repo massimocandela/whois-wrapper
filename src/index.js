@@ -1,15 +1,15 @@
-import ipUtils from 'ip-sub';
-import LongestPrefixMatch from 'longest-prefix-match';
+import ipUtils from "ip-sub";
+import LongestPrefixMatch from "longest-prefix-match";
 import batchPromises from "batch-promises";
 
-const execSync = require('child_process').execSync;
+const execSync = require("child_process").execSync;
 
 const rirs = {
     "ripe": "whois.ripe.net",
     "arin": "whois.arin.net",
     "lacnic": "whois.lacnic.net",
     "apnic": "whois.apnic.net",
-    "afrinic": "whois.afrinic.net",
+    "afrinic": "whois.afrinic.net"
 };
 
 const filterFields = (fields = [], answers) => {
@@ -55,7 +55,7 @@ export const onlyMoreSpecific = (answers, prefix) => {
     }
 
     return answers;
-}
+};
 
 const filterMoreSpecific = (answers, prefix) => {
     if (answers.length > 1) {
@@ -75,11 +75,11 @@ const filterMoreSpecific = (answers, prefix) => {
             }
         }
 
-        return index.getMatch(prefix)
+        return index.getMatch(prefix);
     }
 
     return answers;
-}
+};
 
 const squashRemarksAndComments = (data) => {
     const out = [];
@@ -92,7 +92,7 @@ const squashRemarksAndComments = (data) => {
             ...rest,
             ...comments.length ? [{key: "Comment", value: comments.map(i => i.value)}] : [],
             ...remarks.length ? [{key: "remarks", value: remarks.map(i => i.value)}] : [],
-            ...descr.length ? [{key: "descr", value: descr.map(i => i.value)}] : [],
+            ...descr.length ? [{key: "descr", value: descr.map(i => i.value)}] : []
         ]);
     }
 
@@ -103,19 +103,19 @@ const rangeToPrefix = (inetnum) => {
     return inetnum?.includes("-")
         ? ipUtils.ipRangeToCidr(...inetnum?.split("-").map(n => n.trim()))
         : [inetnum];
-}
+};
 
 export const whois = ({query, fields = [], flag, timeout = 4000, servers = []}) => {
     const _call = (command) => {
         let data = [];
         try {
-            data = execSync(command, {encoding: 'utf-8', timeout});
+            data = execSync(command, {encoding: "utf-8", timeout});
         } catch (error) {
             data = error.stdout;
         }
 
         return data.split("\n");
-    }
+    };
     return new Promise((resolve, reject) => {
         try {
             flag = flag ?? (process.platform === "darwin" ? "s" : "h");
@@ -196,7 +196,7 @@ export const prefixLookupArin = ({query, ...params}) => {
                 })
                 .filter(i => !!i);
 
-            for (let {prefixes=[], data} of inetnums) {
+            for (let {prefixes = [], data} of inetnums) {
                 for (let p of prefixes) {
                     index.addPrefix(p, {
                         server: "whois.arin.net",
@@ -272,7 +272,7 @@ const _prefixLookup = ({query, flag}) => {
         prefixLookupArin({query: parent, flag})
     ])
         .then(data => data.flat());
-}
+};
 
 export const prefixLookup = ({query, fields, flag}) => {
     const parent = ipUtils.toPrefix(query);
@@ -280,13 +280,18 @@ export const prefixLookup = ({query, fields, flag}) => {
     return _prefixLookup({query: parent, fields, flag})
         .then(i => filterMoreSpecific(i, parent))
         .then(data => filterFields(fields, data));
-}
+};
 
-export const lessSpecific = ({query, fields, flag}, callback, stop=16) => {
+export const explicitTransferCheck = (params) => {
+    return Promise.all(Object.values(rirs)
+        .map(server => whois({...params, servers: [server]})));
+};
+
+export const lessSpecific = ({query, fields, flag}, callback, stop = 16) => {
     const parent = ipUtils.toPrefix(query);
     const [ip, bits] = ipUtils.getIpAndCidr(parent);
     const prefixes = [];
-    for (let i=bits; i >=stop; i--) {
+    for (let i = bits; i >= stop; i--) {
         prefixes.push(ipUtils.toPrefix([ip, i].join("/")));
     }
 
@@ -305,5 +310,5 @@ export const lessSpecific = ({query, fields, flag}, callback, stop=16) => {
                 });
         }
     })
-        .then(() => filterMoreSpecific(match.flat(), parent))
-}
+        .then(() => filterMoreSpecific(match.flat(), parent));
+};
