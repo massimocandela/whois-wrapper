@@ -44,7 +44,7 @@
   "dependencies": {
     "batch-promises": "^0.0.3",
     "ip-sub": "^1.7.7",
-    "longest-prefix-match": "^1.2.11"
+    "longest-prefix-match": "^1.2.12"
   },
   "release-it": {
     "hooks": {
