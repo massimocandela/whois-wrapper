@@ -106,6 +106,8 @@ const rangeToPrefix = (inetnum) => {
 };
 
 export const whois = ({query, fields = [], flag, timeout = 4000, servers = []}) => {
+    fields = fields.map(i => i.toLowerCase()) ?? [];
+
     const _call = (command) => {
         let data = [];
         try {
@@ -147,7 +149,9 @@ export const whois = ({query, fields = [], flag, timeout = 4000, servers = []}) 
                     if (line.length) {
                         const [key, ...value] = line.split(":").map(i => i.trim());
                         if (!key.startsWith("%") && !key.startsWith("#") && key !== "") {
-                            obj.push({key, value: value.join(":")});
+                            if (fields.length === 0 || fields.includes(key.toLowerCase())) {
+                                obj.push({key, value: value.join(":")});
+                            }
                         }
                     } else {
                         out.push(obj);
