@@ -6,6 +6,7 @@
   "bin": {
     "whois-wrapper": "dist/index.js"
   },
+  "type": "module",
   "scripts": {
     "babel": "./node_modules/.bin/babel",
     "release": "dotenv release-it",
