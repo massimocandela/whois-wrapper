@@ -1,8 +1,7 @@
 import ipUtils from "ip-sub";
 import LongestPrefixMatch from "longest-prefix-match";
 import batchPromises from "batch-promises";
-
-const execSync = require("child_process").execSync;
+import {execSync} from "child_process";
 
 const rirs = {
     "ripe": "whois.ripe.net",
@@ -36,28 +35,7 @@ const filterFields = (fields = [], answers) => {
     return answers;
 };
 
-export const onlyMoreSpecific = (answers, prefix) => {
-    if (answers.length > 1) {
-        const lines = answers.map(i => i.data).flat();
-        const index = new LongestPrefixMatch();
-
-        for (let answer of lines) {
-            const inetnum = answer?.find(n => ["inetnum", "inet6num", "netrange"].includes(n.key.toLowerCase()))?.value;
-
-            if (inetnum) {
-                for (let p of rangeToPrefix(inetnum)) {
-                    index.addPrefix(p, answer);
-                }
-            }
-        }
-
-        return index.getMatch(prefix);
-    }
-
-    return answers;
-};
-
-const filterMoreSpecific = (answers, prefix) => {
+export const filterMoreSpecific = (answers, prefix) => {
     if (answers.length > 1) {
         const index = new LongestPrefixMatch();
 
@@ -282,7 +260,6 @@ export const prefixLookup = ({query, fields, flag}) => {
     const parent = ipUtils.toPrefix(query);
 
     return _prefixLookup({query: parent, fields, flag})
-        .then(i => filterMoreSpecific(i, parent))
         .then(data => filterFields(fields, data));
 };
 
