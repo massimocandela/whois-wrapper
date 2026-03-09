@@ -3,7 +3,7 @@ import LongestPrefixMatch from "longest-prefix-match";
 import batchPromises from "batch-promises";
 import {execSync} from "child_process";
 
-const rirs = {
+export const rirServers = {
     "ripe": "whois.ripe.net",
     "arin": "whois.arin.net",
     "lacnic": "whois.lacnic.net",
@@ -98,7 +98,7 @@ export const whois = ({query, fields = [], flag, timeout = 4000, servers = []}) 
     };
     return new Promise((resolve, reject) => {
         try {
-            flag = flag ?? (process.platform === "darwin" ? "s" : "h");
+            flag = flag ?? "h";
             const answers = [];
 
             if (servers.length > 0) {
@@ -227,7 +227,7 @@ export const prefixLookupArin = ({query, ...params}) => {
                         }
 
 
-                        return Promise.all(handlers.filter(i => !i?.server).map(i => whois({...params, servers: Object.values(rirs), query: i})))
+                        return Promise.all(handlers.filter(i => !i?.server).map(i => whois({...params, servers: Object.values(rirServers), query: i})))
                             .then(i => {
                                 const index = {};
                                 for (let {server, data} of i.flat()) {
@@ -264,7 +264,7 @@ export const prefixLookup = ({query, fields, flag}) => {
 };
 
 export const explicitTransferCheck = (params) => {
-    return Promise.all(Object.values(rirs)
+    return Promise.all(Object.values(rirServers)
         .map(server => whois({...params, servers: [server]})));
 };
 
