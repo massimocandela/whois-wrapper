@@ -283,7 +283,11 @@ export const lessSpecific = ({query, fields, flag}, callback, stop = 16) => {
         if (match) {
             return Promise.resolve();
         } else {
-            return _prefixLookup({flag: "h", query: prefix})
+            return Promise.all([
+                whois({query: prefix, flag, servers: []}),
+                prefixLookupArin({query: parent, flag})
+            ])
+                .then(data => data.flat())
                 .then(data => {
                     if (callback(data)) {
                         match = data;
@@ -291,5 +295,5 @@ export const lessSpecific = ({query, fields, flag}, callback, stop = 16) => {
                 });
         }
     })
-        .then(() => filterMoreSpecific(match.flat(), parent));
+        .then(() => match ? filterMoreSpecific(match.flat(), parent) : []);
 };
