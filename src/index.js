@@ -277,10 +277,31 @@ export const lessSpecific = ({query, fields, flag}, callback, stop = 16) => {
     }
 
     let match = null;
+    const covered = new LongestPrefixMatch();
 
-    // This could be optimized by checking the last returned cidr and skipping queries that would produce the same answer
+    const addCoveredFromData = (data = []) => {
+        for (let answer of data) {
+            for (let items of answer?.data ?? []) {
+                const inetnums = items
+                    ?.filter(n => ["inetnum", "inet6num", "netrange"].includes(n.key.toLowerCase()))
+                    .map(i => i.value) ?? [];
+
+                for (let inetnum of inetnums) {
+                    for (let p of rangeToPrefix(inetnum) ?? []) {
+                        if (p) {
+                            covered.addPrefix(p, true);
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    // Skip lookups for less-specific prefixes already covered by broader allocations found earlier.
     return batchPromises(1, prefixes, prefix => {
         if (match) {
+            return Promise.resolve();
+        } else if ((covered.getMatch(prefix) ?? []).length > 0) {
             return Promise.resolve();
         } else {
             return Promise.all([
@@ -289,6 +310,8 @@ export const lessSpecific = ({query, fields, flag}, callback, stop = 16) => {
             ])
                 .then(data => data.flat())
                 .then(data => {
+                    addCoveredFromData(data);
+
                     if (callback(data)) {
                         match = data;
                     }
