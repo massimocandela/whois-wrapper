@@ -12,7 +12,9 @@
     "release": "dotenv release-it",
     "compile": "babel src -d dist",
     "serve": "babel-node src/index.js",
-    "test": "mocha --timeout 180000 \"test/**/*.spec.js\""
+    "test": "npm run test:fake",
+    "test:real": "mocha --timeout 180000 \"test/**/*.spec.js\"",
+    "test:fake": "PATH=./test/bin:$PATH mocha --timeout 180000 \"test/**/*.spec.js\""
   },
   "repository": {
     "type": "git",

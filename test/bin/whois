@@ -1,0 +1,66 @@
+#!/bin/sh
+
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+DATA_DIR="$SCRIPT_DIR/../data"
+
+server=""
+query=""
+
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		-h|-s)
+			if [ "$#" -lt 2 ]; then
+				echo "fake-whois: missing server after $1" >&2
+				exit 2
+			fi
+			server="$2"
+			shift 2
+			;;
+		--)
+			shift
+			break
+			;;
+		-*)
+			# Ignore unsupported flags used by external callers.
+			shift
+			;;
+		*)
+			query="$1"
+			shift
+			;;
+	esac
+
+	if [ -n "$query" ]; then
+		break
+	fi
+done
+
+if [ -z "$query" ] && [ "$#" -gt 0 ]; then
+	query="$1"
+fi
+
+if [ -z "$query" ]; then
+	echo "fake-whois: missing query" >&2
+	exit 2
+fi
+
+safe_query=$(printf "%s" "$query" | sed -E -e 's|[[:space:]]*>[[:space:]]*|_gt-|g' -e 's|/|-|g' -e 's|[[:space:]]+|_|g')
+legacy_query_1=$(printf "%s" "$query" | sed -e 's|/|-|g' -e 's| |>_|g' -e 's| |_|g' -e 's|>_|gt-|g')
+legacy_query_2=$(printf "%s" "$query" | sed -e 's|/|-|g' -e 's| |>_|g' -e 's| |_|g')
+
+prefix="default"
+if [ -n "$server" ]; then
+	prefix="$server"
+fi
+
+for candidate in "$safe_query" "$legacy_query_1" "$legacy_query_2"; do
+	file="$DATA_DIR/${prefix}_${candidate}.txt"
+	if [ -f "$file" ]; then
+		cat "$file"
+		exit 0
+	fi
+done
+
+exit 1

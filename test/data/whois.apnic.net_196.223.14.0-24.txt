@@ -1,0 +1,70 @@
+% [whois.apnic.net]
+% Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
+
+% Information related to '196.0.0.0 - 196.255.255.255'
+
+% No abuse contact registered for 196.0.0.0 - 196.255.255.255
+
+inetnum:        196.0.0.0 - 196.255.255.255
+netname:        ERX-NETBLOCK
+descr:          Early registration addresses
+remarks:        ------------------------------------------------------
+remarks:        Important:
+remarks:
+remarks:        Networks in this range were allocated by InterNIC
+remarks:        prior to the formation of Regional Internet
+remarks:        Registries (RIRs): AfriNIC, APNIC, ARIN, LACNIC and RIPE.
+remarks:
+remarks:        Address ranges from this historical space have now
+remarks:        been transferred to the appropriate RIR database.
+remarks:
+remarks:        If your search has returned this record, it means the
+remarks:        address range is not administered by APNIC.
+remarks:
+remarks:        Instead, please search one of the following databases:
+remarks:
+remarks:        - AfriNIC (Africa)
+remarks:        website: http://www.afrinic.net/
+remarks:        command line: whois.afrinic.net
+remarks:
+remarks:        - ARIN (Northern Americas)
+remarks:        website: http://www.arin.net/
+remarks:        command line: whois.arin.net
+remarks:
+remarks:        - LACNIC (Latin America and the Carribean)
+remarks:        website: http://www.lacnic.net/
+remarks:        command line: whois.lacnic.net
+remarks:
+remarks:        - RIPE NCC (Europe)
+remarks:        website: http://www.ripe.net/
+remarks:        command line: whois.ripe.net
+remarks:
+remarks:        For information on the Early Registration Transfer
+remarks:        (ERX) project, see:
+remarks:
+remarks:        http://www.apnic.net/db/erx
+remarks:
+remarks:        ------------------------------------------------------
+country:        AU
+admin-c:        IANA1-AP
+tech-c:         IANA1-AP
+mnt-by:         MAINT-APNIC-AP
+mnt-lower:      MAINT-APNIC-AP
+status:         ALLOCATED PORTABLE
+last-modified:  2008-09-04T06:51:29Z
+source:         APNIC
+
+role:           Internet Assigned Numbers Authority
+address:        see http://www.iana.org.
+admin-c:        IANA1-AP
+tech-c:         IANA1-AP
+nic-hdl:        IANA1-AP
+remarks:        For more information on IANA services
+remarks:        go to IANA web site at http://www.iana.org.
+mnt-by:         MAINT-APNIC-AP
+last-modified:  2018-06-22T22:34:30Z
+source:         APNIC
+
+% This query was served by the APNIC Whois Service version 1.88.34 (WHOIS-UK2)
+
+

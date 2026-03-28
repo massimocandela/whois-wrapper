@@ -1,0 +1,12 @@
+% This is the AfriNIC Whois server.
+% The AFRINIC whois database is subject to  the following terms of Use. See https://afrinic.net/whois/terms
+
+% Note: this output has been filtered.
+%       To receive output for a database update, use the "-B" flag.
+
+%ERROR:101: no entries found
+%
+% No entries found in source AFRINIC.
+
+
+

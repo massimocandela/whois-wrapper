@@ -1,0 +1,47 @@
+% IP Client: 37.251.99.170
+ 
+% Joint Whois - whois.lacnic.net
+%  This server accepts single ASN, IPv4 or IPv6 queries
+
+% LACNIC resource: whois.lacnic.net
+
+
+% Copyright LACNIC lacnic.net
+%  The data below is provided for information purposes
+%  and to assist persons in obtaining information about or
+%  related to AS and IP numbers registrations
+%  By submitting a whois query, you agree to use this data
+%  only for lawful purposes.
+%  2026-03-28 12:13:11 (-03 -03:00)
+
+inetnum:     181.64.128.0/18
+status:      reallocated
+aut-num:     AS6147
+owner:       PE-TDPERX4-LACNIC
+ownerid:     PE-PETD6-LACNIC
+responsible: Telefonica del Peru
+address:     Av. San Felipe 1144 Surquillo, 1144, Edi A
+address:     34 - Lima - 
+country:     PE
+phone:       +51 1 210-6771
+owner-c:     GRT2
+tech-c:      GRT2
+abuse-c:     GRT2
+created:     20120220
+changed:     20120220
+inetnum-up:  181.64.128.0/17
+
+nic-hdl:     GRT2
+person:      Gestion Dir. IP Telefónica del Perú
+e-mail:      tommy.tomaylla@telefonica.com
+address:     Calle San Felipe 1144, 1144, 
+address:     LI34 - Lima - LI
+country:     PE
+phone:       +51 1 2106771
+created:     20021204
+changed:     20240409
+
+% whois.lacnic.net accepts only direct match queries.
+% Types of queries are: POCs, ownerid, CIDR blocks, IP
+% and AS numbers.
+

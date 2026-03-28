@@ -1,0 +1,42 @@
+% [whois.apnic.net]
+% Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
+
+% Information related to '8.0.0.0 - 8.255.255.255'
+
+% No abuse contact registered for 8.0.0.0 - 8.255.255.255
+
+inetnum:        8.0.0.0 - 8.255.255.255
+netname:        IANA-NETBLOCK-8
+descr:          This network range is not allocated to APNIC.
+descr:
+descr:          If your whois search has returned this message, then you have
+descr:          searched the APNIC whois database for an address that is
+descr:          allocated by another Regional Internet Registry (RIR).
+descr:
+descr:          Please search the other RIRs at whois.arin.net or whois.ripe.net
+descr:          for more information about that range.
+country:        AU
+admin-c:        IANA1-AP
+tech-c:         IANA1-AP
+remarks:        For general info on spam complaints email spam@apnic.net.
+remarks:        For general info on hacking & abuse complaints email abuse@apnic.net.
+mnt-by:         MAINT-APNIC-AP
+mnt-lower:      MAINT-APNIC-AP
+status:         ALLOCATED PORTABLE
+last-modified:  2008-09-04T06:51:28Z
+source:         APNIC
+
+role:           Internet Assigned Numbers Authority
+address:        see http://www.iana.org.
+admin-c:        IANA1-AP
+tech-c:         IANA1-AP
+nic-hdl:        IANA1-AP
+remarks:        For more information on IANA services
+remarks:        go to IANA web site at http://www.iana.org.
+mnt-by:         MAINT-APNIC-AP
+last-modified:  2018-06-22T22:34:30Z
+source:         APNIC
+
+% This query was served by the APNIC Whois Service version 1.88.34 (WHOIS-UK2)
+
+

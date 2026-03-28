@@ -1,0 +1,55 @@
+% This is the AfriNIC Whois server.
+% The AFRINIC whois database is subject to  the following terms of Use. See https://afrinic.net/whois/terms
+
+% Note: this output has been filtered.
+%       To receive output for a database update, use the "-B" flag.
+
+% Information related to '0.0.0.0 - 255.255.255.255'
+
+% No abuse contact registered for 0.0.0.0 - 255.255.255.255
+
+inetnum:        0.0.0.0 - 255.255.255.255
+netname:        IANA-BLK
+descr:          The whole IPv4 address space
+country:        EU # Country is really world wide
+org:            ORG-IANA1-AFRINIC
+admin-c:        IANA1-AFRINIC
+tech-c:         IANA1-AFRINIC
+status:         ALLOCATED UNSPECIFIED
+remarks:        The country is really worldwide.
+remarks:        This address space is assigned at various other places in
+remarks:        the world and might therefore not be in the RIPE database.
+remarks:        data has been transferred from RIPE Whois Database 20050221
+mnt-by:         AFRINIC-HM-MNT
+mnt-lower:      AFRINIC-HM-MNT
+source:         AFRINIC # Filtered
+parent:         0.0.0.0 - 255.255.255.255
+
+organisation:   ORG-IANA1-AFRINIC
+org-name:       Internet Assigned Numbers Authority
+org-type:       IANA
+country:        EU # Country is really worldwide
+address:        see http://www.iana.org
+remarks:        The IANA allocates IP addresses and AS number blocks to RIRs
+remarks:        see http://www.iana.org/ipaddress/ip-addresses.htm
+remarks:        and http://www.iana.org/assignments/as-numbers
+admin-c:        IANA1-AFRINIC
+tech-c:         IANA1-AFRINIC
+mnt-ref:        AFRINIC-HM-MNT
+mnt-by:         AFRINIC-HM-MNT
+remarks:        data has been transferred from RIPE Whois Database 20050221
+source:         AFRINIC # Filtered
+
+role:           Internet Assigned Numbers Authority
+address:        see http://www.iana.org.
+admin-c:        TEAM-AFRINIC
+tech-c:         TEAM-AFRINIC
+nic-hdl:        IANA1-AFRINIC
+remarks:        For more information on IANA services
+remarks:        go to IANA web site at http://www.iana.org.
+remarks:        data has been transferred from RIPE Whois Database 20050221
+mnt-by:         AFRINIC-DB-MNT
+source:         AFRINIC # Filtered
+
+
+

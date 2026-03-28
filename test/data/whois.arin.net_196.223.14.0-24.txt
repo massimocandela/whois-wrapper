@@ -1,0 +1,47 @@
+NetRange:       196.0.0.0 - 196.255.255.255
+CIDR:           196.0.0.0/8
+NetName:        NET196
+NetHandle:      NET-196-0-0-0-0
+Parent:          ()
+NetType:        Allocated to AfriNIC
+OriginAS:       
+Organization:   African Network Information Center (AFRINIC)
+RegDate:        1993-05-01
+Updated:        2010-11-09
+Ref:            https://rdap.arin.net/registry/ip/196.0.0.0
+
+ResourceLink:  http://afrinic.net/en/services/whois-query
+ResourceLink:  whois.afrinic.net
+
+
+OrgName:        African Network Information Center
+OrgId:          AFRINIC
+Address:        Level 11ABC
+Address:        Raffles Tower
+Address:        Lot 19, Cybercity
+City:           Ebene
+StateProv:      
+PostalCode:     
+Country:        MU
+RegDate:        2004-05-17
+Updated:        2015-05-04
+Comment:        AfriNIC - http://www.afrinic.net
+Comment:        The African & Indian Ocean Internet Registry
+Ref:            https://rdap.arin.net/registry/entity/AFRINIC
+
+ReferralServer:  whois://whois.afrinic.net
+ResourceLink:  http://afrinic.net/en/services/whois-query
+
+OrgTechHandle: GENER11-ARIN
+OrgTechName:   Generic POC
+OrgTechPhone:  +230 4666616 
+OrgTechEmail:  abusepoc@afrinic.net
+OrgTechRef:    https://rdap.arin.net/registry/entity/GENER11-ARIN
+
+OrgAbuseHandle: GENER11-ARIN
+OrgAbuseName:   Generic POC
+OrgAbusePhone:  +230 4666616 
+OrgAbuseEmail:  abusepoc@afrinic.net
+OrgAbuseRef:    https://rdap.arin.net/registry/entity/GENER11-ARIN
+
+

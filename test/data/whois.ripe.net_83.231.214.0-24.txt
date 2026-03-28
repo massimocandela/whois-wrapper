@@ -1,0 +1,57 @@
+inetnum:        83.231.214.0 - 83.231.214.255
+netname:        VERIO-DE-INFRA
+descr:          NTTEO DE frankfurt facility
+country:        DE
+admin-c:        NERA4-RIPE
+tech-c:         NAIA1-RIPE
+status:         ASSIGNED PA
+remarks:        INFRA-AW
+remarks:        Abuse/UCE: abuse@us.ntt.net
+remarks:        Network: noc@us.ntt.net
+remarks:        Security issues: security@us.ntt.net
+remarks:        Geofeed https://geo.gin.ntt.net/geofeeds/geofeeds.csv
+mnt-by:         MAINT-VIPAR
+created:        2013-12-10T17:18:59Z
+last-modified:  2026-02-18T18:33:44Z
+source:         RIPE # Filtered
+
+role:           NTT IP Addressing
+address:        5680 Greenwood Plaza Blvd.
+address:        Greenwood Village, CO 80111
+address:        United States
+phone:          +1 (720) 475-4000
+remarks:        Abuse/UCE: abuse@ntt.net
+remarks:        Network: noc@ntt.net
+remarks:        Security issues: security@ntt.net
+admin-c:        NIR14-RIPE
+tech-c:         NIR14-RIPE
+nic-hdl:        NAIA1-RIPE
+mnt-by:         MAINT-VIPAR
+created:        2009-12-03T19:15:21Z
+last-modified:  2023-02-07T18:56:12Z
+source:         RIPE # Filtered
+abuse-mailbox:  abuse@ntt.net
+
+role:           NTT Europe Role Account
+address:        NTT Europe, Ltd.
+address:        Devon House
+address:        58 - 60 St. Katharine's Way, 1st Floor
+address:        London E1W 1LB
+address:        United Kingdom
+phone:          +44 20 7767 3700
+fax-no:         +44 20 7767 3701
+remarks:        Network: noc@us.ntt.net
+remarks:        Abuse/UCE: abuse@us.ntt.net
+remarks:        Security issues: security@us.ntt.net
+admin-c:        NAIA1-RIPE
+tech-c:         NAIA1-RIPE
+nic-hdl:        NERA4-RIPE
+mnt-by:         MAINT-VIPAR
+created:        2009-12-03T19:18:33Z
+last-modified:  2015-08-18T00:23:37Z
+source:         RIPE # Filtered
+abuse-mailbox:  abuse@ntt.net
+
+% This query was served by the RIPE Database Query Service version 1.121.2 (ABERDEEN)
+
+

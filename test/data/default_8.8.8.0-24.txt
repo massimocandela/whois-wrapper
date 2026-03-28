@@ -1,0 +1,66 @@
+% IANA WHOIS server
+% for more information on IANA, visit http://www.iana.org
+% This query returned 1 object
+
+refer:        whois.arin.net
+
+inetnum:      8.0.0.0 - 8.255.255.255
+organisation: Administered by ARIN
+status:       LEGACY
+
+whois:        whois.arin.net
+
+changed:      1992-12
+source:       IANA
+
+# whois.arin.net
+
+NetRange:       8.0.0.0 - 8.255.255.255
+CIDR:           8.0.0.0/8
+NetName:        NET8
+NetHandle:      NET-8-0-0-0-0
+Parent:          ()
+NetType:        Allocated to ARIN
+OriginAS:       
+Organization:   American Registry for Internet Numbers (ARIN)
+RegDate:        1992-12-01
+Updated:        2018-04-23
+Ref:            https://rdap.arin.net/registry/ip/8.0.0.0
+
+
+
+OrgName:        American Registry for Internet Numbers
+OrgId:          ARIN
+Address:        PO Box 232290
+City:           Centreville
+StateProv:      VA
+PostalCode:     20120
+Country:        US
+RegDate:        1997-12-22
+Updated:        2019-03-02
+Comment:        For abuse issues please see URL:
+Comment:        https://www.arin.net/reference/materials/abuse/ 
+Comment:        The Registration Services Help Desk is open 
+Comment:        from 7 a.m. to 7 p.m., U.S. Eastern time to assist you.
+Comment:        Phone Number: (703) 227-0660; Fax Number: (703) 997-8844.
+Ref:            https://rdap.arin.net/registry/entity/ARIN
+
+
+OrgAbuseHandle: ARIN-HOSTMASTER
+OrgAbuseName:   Registration Services Department
+OrgAbusePhone:  +1-703-227-0660 
+OrgAbuseEmail:  hostmaster@arin.net
+OrgAbuseRef:    https://rdap.arin.net/registry/entity/ARIN-HOSTMASTER
+
+OrgNOCHandle: ARINN-ARIN
+OrgNOCName:   ARIN NOC
+OrgNOCPhone:  +1-703-227-9840 
+OrgNOCEmail:  noc@arin.net
+OrgNOCRef:    https://rdap.arin.net/registry/entity/ARINN-ARIN
+
+OrgTechHandle: ARIN-HOSTMASTER
+OrgTechName:   Registration Services Department
+OrgTechPhone:  +1-703-227-0660 
+OrgTechEmail:  hostmaster@arin.net
+OrgTechRef:    https://rdap.arin.net/registry/entity/ARIN-HOSTMASTER
+

@@ -1,0 +1,48 @@
+% [whois.apnic.net]
+% Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
+
+% Information related to '83.0.0.0 - 83.255.255.255'
+
+% No abuse contact registered for 83.0.0.0 - 83.255.255.255
+
+inetnum:        83.0.0.0 - 83.255.255.255
+netname:        RIPE-CIDR-BLOCK
+descr:          Not allocated by APNIC
+remarks:        ------------------------------------------------------
+remarks:
+remarks:        Important:
+remarks:
+remarks:        Details of networks in this range are not registered
+remarks:        in the APNIC Whois Database.
+remarks:
+remarks:        Please search the RIPE Whois Database, which contains
+remarks:        details of IP addresses allocated in Europe, the
+remarks:        Middle East, and northern Africa:
+remarks:
+remarks:        website:      http://www.ripe.net/perl/whois
+remarks:        command line: whois.ripe.net
+remarks:
+remarks:        ------------------------------------------------------
+country:        AU
+admin-c:        IANA1-AP
+tech-c:         IANA1-AP
+mnt-by:         MAINT-APNIC-AP
+mnt-lower:      MAINT-APNIC-AP
+status:         ALLOCATED PORTABLE
+last-modified:  2008-09-04T06:51:29Z
+source:         APNIC
+
+role:           Internet Assigned Numbers Authority
+address:        see http://www.iana.org.
+admin-c:        IANA1-AP
+tech-c:         IANA1-AP
+nic-hdl:        IANA1-AP
+remarks:        For more information on IANA services
+remarks:        go to IANA web site at http://www.iana.org.
+mnt-by:         MAINT-APNIC-AP
+last-modified:  2018-06-22T22:34:30Z
+source:         APNIC
+
+% This query was served by the APNIC Whois Service version 1.88.34 (WHOIS-UK2)
+
+

@@ -1,0 +1,68 @@
+% This is the AfriNIC Whois server.
+% The AFRINIC whois database is subject to  the following terms of Use. See https://afrinic.net/whois/terms
+
+% Note: this output has been filtered.
+%       To receive output for a database update, use the "-B" flag.
+
+% Information related to '196.223.0.0 - 196.223.31.255'
+
+% No abuse contact registered for 196.223.0.0 - 196.223.31.255
+
+inetnum:        196.223.0.0 - 196.223.31.255
+netname:        AFRINIC-IXP-BLOCK
+descr:          --------------------------------------
+descr:          This Block is reserved for assignments
+descr:          to IXPs in the AfriNIC region.
+descr:          --------------------------------------
+country:        MU
+org:            ORG-AFNC1-AFRINIC
+admin-c:        TEAM-AFRINIC
+tech-c:         TEAM-AFRINIC
+status:         POLICY-RESERVED
+mnt-by:         AFRINIC-HM-MNT
+mnt-lower:      AFRINIC-HM-MNT
+mnt-domains:    AFRINIC-HM-MNT
+source:         AFRINIC # Filtered
+parent:         196.0.0.0 - 196.255.255.255
+
+organisation:   ORG-AFNC1-AFRINIC
+org-name:       African Network Information Center - (AfriNIC) Ltd
+org-type:       RIR
+country:        MU
+address:        11th Floor, Standard Chartered Tower
+address:        19, Cybercity
+address:        Ebène
+phone:          tel:+230-466-6758
+phone:          tel:+230-403-5100
+admin-c:        CA15-AFRINIC
+tech-c:         IT7-AFRINIC
+mnt-ref:        AFRINIC-HM-MNT
+mnt-ref:        AFRINIC-IT-MNT
+mnt-ref:        AFRINIC-DB-MNT
+mnt-by:         AFRINIC-HM-MNT
+remarks:        =======================================
+remarks:        For more information on AFRINIC assigned blocks,
+remarks:        querry whois.afrinic.net port 43, or the web based
+remarks:        query at http://whois.afrinic.net or www.afrinic.net
+remarks:        website: www.afrinic.net
+remarks:        Other Contacts:
+remarks:        ===============
+remarks:        hostmaster@afrinic.net  - for IP resources
+remarks:        new-member@afrinic.net  - for new members and other
+remarks:        inquiries.
+source:         AFRINIC # Filtered
+
+role:           AfriNIC TEAM
+address:        Raffles Tower - 11th Floor
+address:        Cybercity
+address:        Mauritius
+phone:          tel:+230-403-5100
+fax-no:         tel:+230-466-6758
+admin-c:        CA15-AFRINIC
+tech-c:         CA15-AFRINIC
+nic-hdl:        TEAM-AFRINIC
+mnt-by:         AFRINIC-DB-MNT
+source:         AFRINIC # Filtered
+
+
+

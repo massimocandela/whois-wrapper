@@ -1,0 +1,10 @@
+% [whois.apnic.net]
+% Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
+
+%ERROR:101: no entries found
+%
+% No entries found in source APNIC,JPNIC,KRNIC,TWNIC,IDNIC,IRINN-GRS.
+
+% This query was served by the APNIC Whois Service version 1.88.34 (WHOIS-UK2)
+
+
