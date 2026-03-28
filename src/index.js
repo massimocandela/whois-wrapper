@@ -285,7 +285,7 @@ export const lessSpecific = ({query, fields, flag}, callback, stop = 16) => {
         } else {
             return Promise.all([
                 whois({query: prefix, flag, servers: []}),
-                prefixLookupArin({query: parent, flag})
+                prefixLookupArin({query: prefix, flag})
             ])
                 .then(data => data.flat())
                 .then(data => {
