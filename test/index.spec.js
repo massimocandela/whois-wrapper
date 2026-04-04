@@ -1,13 +1,5 @@
 import {expect} from "chai";
-import {
-    explicitTransferCheck,
-    filterMoreSpecific,
-    lessSpecific,
-    prefixLookup,
-    prefixLookupArin,
-    rirServers,
-    whois
-} from "../src/index.js";
+import {explicitTransferCheck, filterMoreSpecific, lessSpecific, prefixLookup, prefixLookupArin, rirServers, whois} from "../src/index.js";
 
 const LIVE_RIR_FIXTURES = [
     {
