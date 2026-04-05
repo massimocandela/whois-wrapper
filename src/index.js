@@ -83,7 +83,7 @@ const rangeToPrefix = (inetnum) => {
         : [inetnum];
 };
 
-export const whois = ({query, fields = [], flag, timeout = 4000, servers = []}) => {
+export const whois = ({query, fields = [], flag, timeout = 4000, servers = [], resourceFlag = ""}) => {
     fields = fields.map(i => i.toLowerCase()) ?? [];
 
     const _call = (command) => {
@@ -96,6 +96,7 @@ export const whois = ({query, fields = [], flag, timeout = 4000, servers = []}) 
 
         return data.split("\n");
     };
+
     return new Promise((resolve, reject) => {
         try {
             flag = flag ?? "h";
@@ -103,7 +104,7 @@ export const whois = ({query, fields = [], flag, timeout = 4000, servers = []}) 
 
             if (servers.length > 0) {
                 for (let server of servers) {
-                    const command = `whois -${flag} ${server} "${query}"`;
+                    const command = `whois -${flag} ${server} ${resourceFlag} "${query}"`;
 
                     answers.push({
                         server,
@@ -111,7 +112,7 @@ export const whois = ({query, fields = [], flag, timeout = 4000, servers = []}) 
                     });
                 }
             } else {
-                const command = `whois "${query}"`;
+                const command = `whois ${resourceFlag} "${query}"`;
 
                 answers.push({
                     server: "",
