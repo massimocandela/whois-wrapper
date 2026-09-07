@@ -245,22 +245,22 @@ export const prefixLookupArin = ({query, ...params}) => {
         });
 };
 
-const _prefixLookup = ({query, flag}) => {
+const _prefixLookup = ({query, flag, servers = []}) => {
     const parent = ipUtils.toPrefix(query);
     const [start] = ipUtils.cidrToRange(parent);
 
     return Promise.all([
-        whois({query: parent, flag, servers: []}),
-        whois({query: start, flag, servers: []}),
+        whois({query: parent, flag, servers}),
+        whois({query: start, flag, servers}),
         prefixLookupArin({query: parent, flag})
     ])
         .then(data => data.flat());
 };
 
-export const prefixLookup = ({query, fields, flag}) => {
+export const prefixLookup = ({query, fields, flag, servers}) => {
     const parent = ipUtils.toPrefix(query);
 
-    return _prefixLookup({query: parent, fields, flag})
+    return _prefixLookup({query: parent, fields, flag, servers})
         .then(data => filterFields(fields, data));
 };
 
