@@ -104,7 +104,7 @@ export const whois = ({query, fields = [], flag, timeout = 4000, servers = [], r
 
             if (servers.length > 0) {
                 for (let server of servers) {
-                    const command = `whois -${flag} ${server} ${resourceFlag} "${query}"`;
+                    const command = `whois -${flag} ${server} ${resourceFlag} "${query}" --no-recursion`;
 
                     answers.push({
                         server,
@@ -112,7 +112,7 @@ export const whois = ({query, fields = [], flag, timeout = 4000, servers = [], r
                     });
                 }
             } else {
-                const command = `whois ${resourceFlag} "${query}"`;
+                const command = `whois ${resourceFlag} "${query}" --no-recursion`;
 
                 answers.push({
                     server: "",
