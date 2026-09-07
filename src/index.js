@@ -265,7 +265,9 @@ export const prefixLookup = ({query, fields, flag, servers}) => {
 };
 
 export const explicitTransferCheck = (params) => {
-    return Promise.all(Object.values(rirServers)
+    const servers = params.servers && params.servers.length ? params.servers : Object.values(rirServers);
+
+    return Promise.all(servers
         .map(server => whois({...params, servers: [server]})));
 };
 
